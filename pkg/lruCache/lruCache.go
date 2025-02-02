@@ -24,6 +24,11 @@ type LRUCache struct {
 	stopCh   chan struct{}
 }
 
+var (
+	NeverTTL   time.Duration = 800000 * time.Hour
+	DefaultTTL time.Duration
+)
+
 // NewLRUCache erstellt einen neuen LRU-Cache mit TTL und startet das Auto-Cleanup
 func NewLRUCache(capacity int, ttl time.Duration, cleanupInterval time.Duration) *LRUCache {
 	cache := &LRUCache{
