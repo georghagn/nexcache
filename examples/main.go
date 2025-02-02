@@ -1,8 +1,8 @@
 package main
 
 import (
-	"EtaCache/pkg/lruCache"
 	"fmt"
+	"hCache/pkg/lruCache"
 	"time"
 )
 

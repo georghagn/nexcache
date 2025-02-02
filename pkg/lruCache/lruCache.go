@@ -1,4 +1,4 @@
-// etaCache.go
+// lruCache.go
 package lruCache
 
 import (
