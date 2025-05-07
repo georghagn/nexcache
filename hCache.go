@@ -1,5 +1,5 @@
 // lruCache.go
-package lruCache
+package hCache
 
 import (
 	"container/list"

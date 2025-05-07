@@ -1,3 +1,3 @@
-# EtaCache
+# hCache
 
 Einfacher LRU Cache

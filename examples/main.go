@@ -2,12 +2,12 @@ package main
 
 import (
 	"fmt"
-	"hCache/pkg/lruCache"
+	"hCache"
 	"time"
 )
 
 func main() {
-	cache := lruCache.NewLRUCache(3, 3*time.Second, 2*time.Second) // TTL=3s, Cleanup alle 2s
+	cache := hCache.NewLRUCache(3, 3*time.Second, 2*time.Second) // TTL=3s, Cleanup alle 2s
 
 	cache.Set("A", 1)
 	cache.Set("B", 2)

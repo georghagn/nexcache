@@ -1,6 +1,6 @@
-// EtaCache project doc.go
+// hCache project doc.go
 
 /*
-EtaCache document
+hCache document
 */
-package EtaCache
+package hCache
