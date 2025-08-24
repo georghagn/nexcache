@@ -3,6 +3,8 @@ package hCache
 
 import (
 	"container/list"
+	"encoding/json"
+	"os"
 	"sync"
 	"time"
 )
@@ -138,4 +140,55 @@ func (c *LRUCache) cleanupExpiredEntries() {
 // StopCleanup beendet die Cleanup-Routine
 func (c *LRUCache) StopCleanup() {
 	close(c.stopCh)
+}
+
+// SaveToFile speichert den Cache als JSON
+func (c *LRUCache) SaveToFile(filename string) error {
+	c.mu.Lock()
+	defer c.mu.Unlock()
+
+	file, err := os.Create(filename)
+	if err != nil {
+		return err
+	}
+	defer file.Close()
+
+	// Daten in eine Liste umwandeln
+	var entries []CacheEntry
+	for element := c.list.Front(); element != nil; element = element.Next() {
+		entry := element.Value.(*CacheEntry)
+		entries = append(entries, *entry)
+	}
+
+	return json.NewEncoder(file).Encode(entries)
+}
+
+// LoadFromFile lädt den Cache aus einer JSON-Datei
+func (c *LRUCache) LoadFromFile(filename string) error {
+	c.mu.Lock()
+	defer c.mu.Unlock()
+
+	file, err := os.Open(filename)
+	if err != nil {
+		return err
+	}
+	defer file.Close()
+
+	var entries []CacheEntry
+	if err := json.NewDecoder(file).Decode(&entries); err != nil {
+		return err
+	}
+
+	// Alten Cache leeren
+	c.cache = make(map[string]*list.Element)
+	c.list = list.New()
+
+	// Daten wiederherstellen
+	for _, entry := range entries {
+		if time.Now().Before(entry.ExpiresAt) { // Nur gültige Einträge übernehmen
+			element := c.list.PushFront(&entry)
+			c.cache[entry.Key] = element
+		}
+	}
+	return nil
 }

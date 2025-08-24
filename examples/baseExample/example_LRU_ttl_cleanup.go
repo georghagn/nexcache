@@ -17,13 +17,13 @@ func main() {
 	fmt.Println("Direkt nach Setzen:")
 
 	item, found := cache.Get("A")
-	fmt.Println("A:", item, found) // ✅ 1
+	fmt.Println("A:", item, found) // 1
 
 	item, found = cache.Get("B")
-	fmt.Println("B:", item, found) // ✅ 2
+	fmt.Println("B:", item, found) // 2
 
 	item, found = cache.Get("C")
-	fmt.Println("C:", item, found) // ✅ 3
+	fmt.Println("C:", item, found) // 3
 
 	// 4 Sekunden warten, damit die Werte ablaufen
 	time.Sleep(4 * time.Second)
@@ -32,13 +32,13 @@ func main() {
 	fmt.Println("\nNach Ablauf der TTL + Cleanup:")
 
 	item, found = cache.Get("A")
-	fmt.Println("A:", item, found) // ❌ nil, weil abgelaufen
+	fmt.Println("A:", item, found) // nil, weil abgelaufen
 
 	item, found = cache.Get("B")
-	fmt.Println("B:", item, found) // ❌ nil, weil abgelaufen
+	fmt.Println("B:", item, found) // nil, weil abgelaufen
 
 	item, found = cache.Get("C")
-	fmt.Println("C:", item, found) // ❌ nil, weil abgelaufen
+	fmt.Println("C:", item, found) // nil, weil abgelaufen
 
 	// Neues Element hinzufügen → Cache leert sich automatisch
 	cache.Set("D", 4)
