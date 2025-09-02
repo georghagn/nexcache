@@ -1,4 +1,4 @@
-// exampleWithPersistenz
+// exampleWithPersistence
 package main
 
 import (
