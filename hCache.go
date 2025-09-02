@@ -66,7 +66,7 @@ func (c *LRUCache) Get(key string) (interface{}, bool) {
 }
 
 // Set speichert einen Wert im Cache und entfernt das älteste Element, falls nötig
-func (c *LRUCache) Set(key string, value interface{}) {
+func (c *LRUCache) Put(key string, value interface{}) {
 	c.mu.Lock()
 	defer c.mu.Unlock()
 
@@ -81,7 +81,7 @@ func (c *LRUCache) Set(key string, value interface{}) {
 
 	// Falls der Cache voll ist, das älteste Element entfernen
 	if c.list.Len() >= c.capacity {
-		c.evictOldest()
+		c.ejectOldest()
 	}
 
 	// Neues Element erstellen und vorne einfügen
@@ -111,7 +111,7 @@ func (c *LRUCache) removeElement(element *list.Element) {
 }
 
 // evictOldest entfernt das älteste Element aus dem Cache
-func (c *LRUCache) evictOldest() {
+func (c *LRUCache) ejectOldest() {
 	oldest := c.list.Back()
 	if oldest != nil {
 		c.removeElement(oldest)

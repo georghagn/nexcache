@@ -11,9 +11,9 @@ func main() {
 	cache := hCache.NewLRUCache(3, 10*time.Second, 2*time.Second)
 
 	// Daten setzen
-	cache.Set("A", 1)
-	cache.Set("B", 2)
-	cache.Set("C", 3)
+	cache.Put("A", 1)
+	cache.Put("B", 2)
+	cache.Put("C", 3)
 
 	// Cache speichern
 	if err := cache.SaveToFile("cache.json"); err != nil {

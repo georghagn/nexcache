@@ -29,9 +29,9 @@ func TestHCache(t *testing.T) {
 	}
 
 	// Daten setzen
-	cache.Set("A", recordA)
-	cache.Set("B", recordB)
-	cache.Set("C", recordC)
+	cache.Put("A", recordA)
+	cache.Put("B", recordB)
+	cache.Put("C", recordC)
 
 	// Cache speichern
 	t.Log("Save to file:", fileName)
