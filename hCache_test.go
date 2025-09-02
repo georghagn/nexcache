@@ -62,4 +62,17 @@ func TestHCache(t *testing.T) {
 	} else {
 		t.Error("Record C not found")
 	}
+
+	// Test auf delete entry
+	if ergB, found := cache.Delete("B"); found {
+		t.Log("B deleted", ergB)
+	} else {
+		t.Error("B not found")
+	}
+
+	if ergB, found := cache.Get("B"); found {
+		t.Error("B found, should be 'NOT FOUND'", ergB)
+	} else {
+		t.Log("B not found")
+	}
 }

@@ -90,6 +90,19 @@ func (c *LRUCache) Set(key string, value interface{}) {
 	c.cache[key] = element
 }
 
+// Delete löscht einen Wert aus dem Cache oder gibt nil zurück, falls nicht vorhanden oder abgelaufen
+func (c *LRUCache) Delete(key string) (interface{}, bool) {
+	c.mu.Lock()
+	defer c.mu.Unlock()
+
+	if element, found := c.cache[key]; found {
+		entry := element.Value.(*CacheEntry)
+		c.removeElement(element)
+		return entry.Value, true
+	}
+	return nil, false
+}
+
 // removeElement entfernt ein Element aus der Liste und Map
 func (c *LRUCache) removeElement(element *list.Element) {
 	entry := element.Value.(*CacheEntry)
