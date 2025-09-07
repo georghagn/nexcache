@@ -3,8 +3,9 @@ package main
 
 import (
 	"fmt"
-	"hCache"
 	"time"
+
+	"hConsult.biz/hCache"
 )
 
 func main() {

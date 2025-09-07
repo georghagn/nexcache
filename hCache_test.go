@@ -45,32 +45,32 @@ func TestHCache(t *testing.T) {
 		t.Error("Fehler beim Laden", err)
 	}
 
-	if ergA, found := cache.Get("A"); found {
+	if ergA, found := newCache.Get("A"); found {
 		t.Log("A:", ergA) // 1
 	} else {
 		t.Error("Record A not found")
 	}
 
-	if ergB, found := cache.Get("B"); found {
+	if ergB, found := newCache.Get("B"); found {
 		t.Log("B:", ergB) // 2
 	} else {
 		t.Error("Record B not found")
 	}
 
-	if ergC, found := cache.Get("C"); found {
+	if ergC, found := newCache.Get("C"); found {
 		t.Log("C:", ergC) // 2
 	} else {
 		t.Error("Record C not found")
 	}
 
 	// Test auf delete entry
-	if ergB, found := cache.Delete("B"); found {
+	if ergB, found := newCache.Delete("B"); found {
 		t.Log("B deleted", ergB)
 	} else {
 		t.Error("B not found")
 	}
 
-	if ergB, found := cache.Get("B"); found {
+	if ergB, found := newCache.Get("B"); found {
 		t.Error("B found, should be 'NOT FOUND'", ergB)
 	} else {
 		t.Log("B not found")

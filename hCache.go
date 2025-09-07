@@ -65,6 +65,38 @@ func (c *LRUCache) Get(key string) (interface{}, bool) {
 	return nil, false
 }
 
+// GetOrLoad versucht den Wert aus dem Cache zu holen.
+// Falls nicht vorhanden oder abgelaufen, ruft es die Loader-Funktion auf,
+// der speichert das Ergebnis im Cache und gibt es zurück.
+// Nur erfolgreiche Loader-Ergebnisse werden in den Cache gespeichert.
+func (c *LRUCache) GetOrLoad(key string, loader func() (interface{}, error)) (interface{}, error) {
+	c.mu.Lock()
+	if element, found := c.cache[key]; found {
+		entry := element.Value.(*CacheEntry)
+
+		// Prüfen, ob abgelaufen
+		if time.Now().After(entry.ExpiresAt) {
+			c.removeElement(element)
+		} else {
+			c.list.MoveToFront(element)
+			val := entry.Value
+			c.mu.Unlock()
+			return val, nil
+		}
+	}
+	c.mu.Unlock()
+
+	// Wert ist nicht im Cache → Loader aufrufen
+	val, err := loader()
+	if err != nil {
+		return nil, err
+	}
+
+	// Ergebnis in den Cache legen
+	c.Put(key, val)
+	return val, nil
+}
+
 // Set speichert einen Wert im Cache und entfernt das älteste Element, falls nötig
 func (c *LRUCache) Put(key string, value interface{}) {
 	c.mu.Lock()
