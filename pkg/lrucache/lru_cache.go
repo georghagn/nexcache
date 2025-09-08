@@ -41,8 +41,9 @@ func NewLRUCache(capacity int, ttl time.Duration, cleanupInterval time.Duration)
 
 // ---------------------- Basisoperationen ----------------------
 
-// Get holt einen Wert oder false, wenn nicht gefunden oder abgelaufen
+// Get holt einen Wert oder false, wenn nichts gefunden oder abgelaufen
 func (c *LRUCache) Get(key string) (interface{}, bool) {
+
 	c.mu.Lock()
 	defer c.mu.Unlock()
 
@@ -55,11 +56,14 @@ func (c *LRUCache) Get(key string) (interface{}, bool) {
 		c.list.MoveToFront(element)
 		return entry.Value, true
 	}
+
 	return nil, false
+
 }
 
 // Set speichert einen Wert im Cache
 func (c *LRUCache) Set(key string, value interface{}) {
+
 	c.mu.Lock()
 	defer c.mu.Unlock()
 
@@ -78,6 +82,7 @@ func (c *LRUCache) Set(key string, value interface{}) {
 	entry := &CacheEntry{Key: key, Value: value, ExpiresAt: time.Now().Add(c.ttl)}
 	element := c.list.PushFront(entry)
 	c.cache[key] = element
+
 }
 
 // ---------------------- Erweiterungen ----------------------
@@ -85,6 +90,7 @@ func (c *LRUCache) Set(key string, value interface{}) {
 // GetOrLoad: Holt Wert aus Cache oder ruft Loader auf.
 // Nur erfolgreiche Loader-Ergebnisse werden gespeichert.
 func (c *LRUCache) GetOrLoad(key string, loader func() (interface{}, error)) (interface{}, error) {
+
 	c.mu.Lock()
 	if element, found := c.cache[key]; found {
 		entry := element.Value.(*CacheEntry)
@@ -106,6 +112,7 @@ func (c *LRUCache) GetOrLoad(key string, loader func() (interface{}, error)) (in
 
 	c.Set(key, val)
 	return val, nil
+
 }
 
 // GetOrLoadWithFallback: wie GetOrLoad, aber liefert Fallback bei Fehler
@@ -136,12 +143,14 @@ func (c *LRUCache) GetOrLoadWithFallback(
 
 	c.Set(key, val)
 	return val, nil
+
 }
 
 // ---------------------- Persistenz ----------------------
 
 // SaveToFile speichert den Cache als JSON
 func (c *LRUCache) SaveToFile(filename string) error {
+
 	c.mu.Lock()
 	defer c.mu.Unlock()
 
@@ -158,10 +167,12 @@ func (c *LRUCache) SaveToFile(filename string) error {
 	}
 
 	return json.NewEncoder(file).Encode(entries)
+
 }
 
 // LoadFromFile lädt Cache-Inhalt aus JSON-Datei
 func (c *LRUCache) LoadFromFile(filename string) error {
+
 	c.mu.Lock()
 	defer c.mu.Unlock()
 
@@ -186,13 +197,16 @@ func (c *LRUCache) LoadFromFile(filename string) error {
 		}
 	}
 	return nil
+
 }
 
 // ---------------------- Hintergrund-Cleanup ----------------------
 
 func (c *LRUCache) startCleanup(interval time.Duration) {
+
 	ticker := time.NewTicker(interval)
 	defer ticker.Stop()
+
 	for {
 		select {
 		case <-ticker.C:
@@ -201,9 +215,11 @@ func (c *LRUCache) startCleanup(interval time.Duration) {
 			return
 		}
 	}
+
 }
 
 func (c *LRUCache) cleanupExpiredEntries() {
+
 	c.mu.Lock()
 	defer c.mu.Unlock()
 	for element := c.list.Back(); element != nil; {
@@ -214,6 +230,7 @@ func (c *LRUCache) cleanupExpiredEntries() {
 		}
 		element = prev
 	}
+
 }
 
 // StopCleanup beendet die Cleanup-Routine
