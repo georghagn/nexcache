@@ -4,15 +4,15 @@ import (
 	"fmt"
 	"time"
 
-	"hConsult.biz/hCache"
+	"hConsult.biz/hCache/pkg/lrucache"
 )
 
 func main() {
-	cache := hCache.NewLRUCache(3, 3*time.Second, 2*time.Second) // TTL=3s, Cleanup alle 2s
+	cache := lrucache.NewLRUCache(3, 3*time.Second, 2*time.Second) // TTL=3s, Cleanup alle 2s
 
-	cache.Put("A", 1)
-	cache.Put("B", 2)
-	cache.Put("C", 3)
+	cache.Set("A", 1)
+	cache.Set("B", 2)
+	cache.Set("C", 3)
 
 	// Direkt nach dem Setzen → Werte abrufen
 	fmt.Println("Direkt nach Setzen:")
@@ -42,7 +42,7 @@ func main() {
 	fmt.Println("C:", item, found) // nil, weil abgelaufen
 
 	// Neues Element hinzufügen → Cache leert sich automatisch
-	cache.Put("D", 4)
+	cache.Set("D", 4)
 	fmt.Println("\nNach dem Hinzufügen eines neuen Elements:")
 
 	item, found = cache.Get("D")

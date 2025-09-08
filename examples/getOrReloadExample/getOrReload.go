@@ -5,11 +5,11 @@ import (
 	"fmt"
 	"time"
 
-	"hConsult.biz/hCache"
+	"hConsult.biz/hCache/pkg/lrucache"
 )
 
 func main() {
-	cache := hCache.NewLRUCache(3, 5*time.Second, 2*time.Second)
+	cache := lrucache.NewLRUCache(3, 5*time.Second, 2*time.Second)
 
 	// Loader, der manchmal Fehler zurückgibt
 	loader := func() (interface{}, error) {

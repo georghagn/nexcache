@@ -72,7 +72,7 @@ func (c *LRUCache) Set(key string, value interface{}) {
 	}
 
 	if c.list.Len() >= c.capacity {
-		c.evictOldest()
+		c.ejectOldest()
 	}
 
 	entry := &CacheEntry{Key: key, Value: value, ExpiresAt: time.Now().Add(c.ttl)}
@@ -229,7 +229,7 @@ func (c *LRUCache) removeElement(element *list.Element) {
 	c.list.Remove(element)
 }
 
-func (c *LRUCache) evictOldest() {
+func (c *LRUCache) ejectOldest() {
 	oldest := c.list.Back()
 	if oldest != nil {
 		c.removeElement(oldest)
