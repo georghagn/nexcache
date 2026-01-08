@@ -4,11 +4,11 @@ import (
 	"fmt"
 	"time"
 
-	"hConsult.biz/hCache/pkg/lrucache"
+	"github.com/georghagn/nexCache/lrucache"
 )
 
 func main() {
-	cache := lrucache.NewLRUCache(3, 3*time.Second, 2*time.Second) // TTL=3s, Cleanup alle 2s
+	cache := lrucache.New(3, 3*time.Second, 2*time.Second) // TTL=3s, Cleanup alle 2s
 
 	cache.Set("A", 1)
 	cache.Set("B", 2)

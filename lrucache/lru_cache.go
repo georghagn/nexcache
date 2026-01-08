@@ -1,4 +1,6 @@
-// lru_cache
+// Copyright 2026 Georg Hagn
+// SPDX-License-Identifier: Apache-2.0
+
 package lrucache
 
 import (
@@ -9,14 +11,14 @@ import (
 	"time"
 )
 
-// CacheEntry speichert Schlüssel, Wert und Ablaufzeit
+// CacheEntry stores key, value, and expiry time
 type CacheEntry struct {
 	Key       string
 	Value     interface{}
 	ExpiresAt time.Time
 }
 
-// LRUCache ist die Hauptstruktur
+// LRUCache is mainstructure
 type LRUCache struct {
 	capacity int
 	cache    map[string]*list.Element
@@ -26,8 +28,8 @@ type LRUCache struct {
 	stopCh   chan struct{}
 }
 
-// NewLRUCache erstellt einen neuen Cache
-func NewLRUCache(capacity int, ttl time.Duration, cleanupInterval time.Duration) *LRUCache {
+// New creates a new LRU cache
+func New(capacity int, ttl time.Duration, cleanupInterval time.Duration) *LRUCache {
 	cache := &LRUCache{
 		capacity: capacity,
 		cache:    make(map[string]*list.Element),
@@ -39,9 +41,9 @@ func NewLRUCache(capacity int, ttl time.Duration, cleanupInterval time.Duration)
 	return cache
 }
 
-// ---------------------- Basisoperationen ----------------------
+// ---------------------- Basic Operations ----------------------
 
-// Get holt einen Wert oder false, wenn nichts gefunden oder abgelaufen
+// Get retrieves a value or false if nothing is found or the date has expired.
 func (c *LRUCache) Get(key string) (interface{}, bool) {
 
 	c.mu.Lock()
@@ -61,7 +63,7 @@ func (c *LRUCache) Get(key string) (interface{}, bool) {
 
 }
 
-// Set speichert einen Wert im Cache
+// Set stores a value in the cache
 func (c *LRUCache) Set(key string, value interface{}) {
 
 	c.mu.Lock()
@@ -85,10 +87,10 @@ func (c *LRUCache) Set(key string, value interface{}) {
 
 }
 
-// ---------------------- Erweiterungen ----------------------
+// ---------------------- Extensions ----------------------
 
-// GetOrLoad: Holt Wert aus Cache oder ruft Loader auf.
-// Nur erfolgreiche Loader-Ergebnisse werden gespeichert.
+// GetOrLoad: Retrieves a value from the cache or calls the loader.
+// Only successful loader results are saved.
 func (c *LRUCache) GetOrLoad(key string, loader func() (interface{}, error)) (interface{}, error) {
 
 	c.mu.Lock()
@@ -115,7 +117,7 @@ func (c *LRUCache) GetOrLoad(key string, loader func() (interface{}, error)) (in
 
 }
 
-// GetOrLoadWithFallback: wie GetOrLoad, aber liefert Fallback bei Fehler
+// GetOrLoadWithFallback: like GetOrLoad, but provides a fallback in case of error
 func (c *LRUCache) GetOrLoadWithFallback(
 	key string,
 	loader func() (interface{}, error),
@@ -146,9 +148,9 @@ func (c *LRUCache) GetOrLoadWithFallback(
 
 }
 
-// ---------------------- Persistenz ----------------------
+// ---------------------- Persistence ----------------------
 
-// SaveToFile speichert den Cache als JSON
+// SaveToFile stores the cache as JSON
 func (c *LRUCache) SaveToFile(filename string) error {
 
 	c.mu.Lock()
@@ -170,7 +172,7 @@ func (c *LRUCache) SaveToFile(filename string) error {
 
 }
 
-// LoadFromFile lädt Cache-Inhalt aus JSON-Datei
+// LoadFromFile loads cache content from JSON file
 func (c *LRUCache) LoadFromFile(filename string) error {
 
 	c.mu.Lock()
@@ -200,7 +202,7 @@ func (c *LRUCache) LoadFromFile(filename string) error {
 
 }
 
-// ---------------------- Hintergrund-Cleanup ----------------------
+// ---------------------- Background cleanup ----------------------
 
 func (c *LRUCache) startCleanup(interval time.Duration) {
 
@@ -233,12 +235,12 @@ func (c *LRUCache) cleanupExpiredEntries() {
 
 }
 
-// StopCleanup beendet die Cleanup-Routine
+// StopCleanup ends the cleanup routine.
 func (c *LRUCache) StopCleanup() {
 	close(c.stopCh)
 }
 
-// ---------------------- Hilfsfunktionen ----------------------
+// ---------------------- Helpers ----------------------
 
 func (c *LRUCache) removeElement(element *list.Element) {
 	entry := element.Value.(*CacheEntry)

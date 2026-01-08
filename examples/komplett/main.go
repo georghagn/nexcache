@@ -4,12 +4,12 @@ import (
 	"fmt"
 	"time"
 
-	"hConsult.biz/hCache/pkg/lrucache"
+	"github.com/georghagn/nexCache/lrucache"
 )
 
 func main() {
 	// Cache mit Kapazität 3, TTL 5s, Cleanup alle 2s
-	cache := lrucache.NewLRUCache(3, 5*time.Second, 2*time.Second)
+	cache := lrucache.New(3, 5*time.Second, 2*time.Second)
 	defer cache.StopCleanup()
 
 	// -------- Einfaches Set/Get --------
@@ -56,7 +56,7 @@ func main() {
 	}
 
 	// Neuen Cache laden
-	newCache := lrucache.NewLRUCache(3, 5*time.Second, 2*time.Second)
+	newCache := lrucache.New(3, 5*time.Second, 2*time.Second)
 	defer newCache.StopCleanup()
 
 	if err := newCache.LoadFromFile("cache.json"); err != nil {

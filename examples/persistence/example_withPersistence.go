@@ -5,11 +5,11 @@ import (
 	"fmt"
 	"time"
 
-	"hConsult.biz/hCache/pkg/lrucache"
+	"github.com/georghagn/nexCache/lrucache"
 )
 
 func main() {
-	cache := lrucache.NewLRUCache(3, 10*time.Second, 2*time.Second)
+	cache := lrucache.New(3, 10*time.Second, 2*time.Second)
 
 	// Daten setzen
 	cache.Set("A", 1)
@@ -22,7 +22,7 @@ func main() {
 	}
 
 	// Neuen Cache laden
-	newCache := lrucache.NewLRUCache(3, 10*time.Second, 2*time.Second)
+	newCache := lrucache.New(3, 10*time.Second, 2*time.Second)
 	if err := newCache.LoadFromFile("cache.json"); err != nil {
 		fmt.Println("Fehler beim Laden:", err)
 	}
