@@ -3,7 +3,7 @@
 
 ||[![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](./LICENSE) [![Go Report Card](https://goreportcard.com/badge/github.com/georghagn/nexcache)](https://goreportcard.com/report/github.com/georghagn/nexcache)|
 |----|----|
-|![GSF-Suite-Logo](logo-suite.png)| ***GSF-nexCache***<br>A lightweight, thread-safe **Least Recently Used (LRU)** cache fo go. Member of the **Go Small Frameworks (GSF)** family.|
+|![GSF-Suite-Logo](logo-gsf.png)| ***GSF-nexCache***<br>A lightweight, thread-safe **Least Recently Used (LRU)** cache fo go. Member of the **Go Small Frameworks (GSF)** family.|
 
 <sup>***GSF*** stands for ***Go Small Frameworks*** — minimalist tools for robust applications.</sup>
 

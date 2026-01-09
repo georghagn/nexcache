@@ -5,7 +5,7 @@
 
 ||[![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](./LICENSE) [![Dependencies](https://img.shields.io/badge/dependencies-zero-brightgreen.svg)](#)|
 |----|----|
-|![GSF-Suite-Logo](logo-suite.png)| ***GSF-nexCache***<br>Din leichtgewichtiger, thread-sicherer **Least Recently Used (LRU)** Cache für Go. Teil der **Go Small Frameworks Suite**|
+|![GSF-Suite-Logo](logo-gsf.png)| ***GSF-nexCache***<br>Din leichtgewichtiger, thread-sicherer **Least Recently Used (LRU)** Cache für Go. Teil der **Go Small Frameworks Suite**|
 
 <sup>***GSF*** steht für ***Go Small Frameworks*** — eine Sammlung von minimalistischen Tools für robuste Anwendungen.</sup>
 
@@ -27,7 +27,7 @@ Ein leichtgewichtiger, thread-sicherer **Least Recently Used (LRU)** Cache für 
 ## Installation
 
 ```bash
-go get github.com/georghagn/nexcahce/lrucache
+go get github.com/georghagn/nexcache/lrucache
 
 ```
 
