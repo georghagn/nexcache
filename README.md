@@ -23,7 +23,7 @@ A lightweight, thread-safe **Least Recently Used (LRU)** cache for Go, featuring
 ## Installation
 
 ```bash
-go get github.com/georghagn/nexCache"
+go get github.com/georghagn/nexcache"
 
 ```
 
@@ -35,7 +35,7 @@ package main
 import (
 	"fmt"
 	"time"
-    "github.com/georghagn/nexCache/lrucache"
+    "github.com/georghagn/nexcache/lrucache"
 )
 
 func main() {
@@ -148,7 +148,7 @@ if val, found := cache.Get("myKey"); found {
 ### Organizational & Standards
 
 * **Copyright:** © 2026 Georg Hagn.
-* **Namespace:** `github.com/georghagn/nexCache/lrucache`
+* **Namespace:** `github.com/georghagn/nexcache/lrucache`
 * **License:** Apache License, Version 2.0.
 
 
@@ -160,3 +160,10 @@ GSF-nexCache is an independent open-source project and is not affiliated with an
 
 Contributions are welcome! Please use GitHub Issues for bug reports or feature ideas.
 **Security-related topics** should not be discussed publicly; please refer to `SECURITY.md`.
+
+
+## Contact
+
+If you have any questions or are interested in this project, you can reach me at
+📧 *georghagn [at] tiny-frameworks.io*
+

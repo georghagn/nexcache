@@ -27,7 +27,7 @@ Ein leichtgewichtiger, thread-sicherer **Least Recently Used (LRU)** Cache für 
 ## Installation
 
 ```bash
-go get github.com/georghagn/nexCache/lrucache
+go get github.com/georghagn/nexcahce/lrucache
 
 ```
 
@@ -39,7 +39,7 @@ package main
 import (
 	"fmt"
 	"time"
-	"github.com/georghagn/nexCache/lrucache"
+	"github.com/georghagn/nexcache/lrucache"
 )
 
 func main() {
@@ -153,7 +153,7 @@ if val, found := cache.Get("key"); found {
 ### Organisation & Standards
 
 * **Copyright:** © 2026 Georg Hagn.
-* **Namespace:** `github.com/georghagn/nexCache/lrucache`
+* **Namespace:** `github.com/georghagn/nexcache/lrucache`
 * **Lizenz:** Apache License, Version 2.0.
 
 GSF-nexCache ist ein unabhängiges open-source project und ist mit keinem Unternehmen ähnlichen Namens verbunden.
@@ -164,5 +164,14 @@ GSF-nexCache ist ein unabhängiges open-source project und ist mit keinem Untern
 
 Beiträge sind willkommen! Bitte nutzen Sie GitHub Issues für Fehlerberichte oder Feature-Ideen.
 **Sicherheitsrelevante Themen** sollten nicht öffentlich diskutiert werden; bitte beachten Sie hierzu die `SECURITY.de.md`.
+
+---
+
+## Kontakt
+
+Bei Fragen oder Interesse an diesem Projekt erreichen Sie mich unter:
+📧 *georghagn [at] tiny-frameworks.io*
+
+<sup>*(Bitte keine Anfragen an die privaten GitHub-Account-Adressen)*</sup>
 
 

@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"time"
 
-	"github.com/georghagn/nexCache/lrucache"
+	"github.com/georghagn/nexcache/lrucache"
 )
 
 func main() {
